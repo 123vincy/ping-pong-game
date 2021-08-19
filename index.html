@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ping Pong Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div style="width:100%;height:100%;">
+    <div class="info">
+      <div class="user">
+        Hello,
+        <span id="username"></span>
+      </div>
+      <div class="lives">
+        <span>Lives : </span>
+        <span class="livesCount"></span>/3
+      </div>
+      <div class="scores">
+        <span>Score : </span>
+        <span class="scoreCount"></span>
+      </div>
+    </div>
+    <div class="board">
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
+
+  <script defer src="index.js"></script>
+</body>
+
+</html>
