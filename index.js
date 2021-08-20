@@ -1,3 +1,6 @@
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
 var canvas = document.getElementById('canvas');
 var livesCount = document.querySelector('.livesCount');
 var scoreCount = document.querySelector('.scoreCount');
@@ -13,7 +16,7 @@ var dy = -5;
 
 var ballRadius = 30;
 var paddleHeight = 10;
-var paddleWidth = 300;
+var paddleWidth = board.width / 2;
 var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
@@ -59,7 +62,17 @@ function draw() {
       livesCount.innerHTML = lives;
       if (!lives) {
         alert('GAME OVER ✨. Your Score : ' + hitCounts);
-        document.location.reload();
+        // document.location.reload();
+        x = canvas.width / 2;
+        y = canvas.height - 30;
+        dx = 3;
+        dy = -3;
+        paddleX = (canvas.width - paddleWidth) / 2;
+        count = 0;
+        hitCounts = 0;
+        lives = 3;
+        scoreCount.innerHTML = hitCounts;
+        livesCount.innerHTML = lives;
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
@@ -98,6 +111,7 @@ function drawPaddle() {
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 document.addEventListener('mousemove', mouseMoveHandler, false);
+document.addEventListener('touchmove', touchMoveHandler, false);
 
 function keyDownHandler(e) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
@@ -121,37 +135,43 @@ function mouseMoveHandler(e) {
     paddleX = relativeX - paddleWidth / 2;
   }
 }
+function touchMoveHandler(e) {
+  var relativeX = e.changedTouches[0].clientX - canvas.offsetLeft;
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth / 2;
+  }
+}
 
 function checkSpeed() {
-  if (count < 3) {
+  if (count < 10) {
     dx = dx > 0 ? 5 : -5;
     dy = dy > 0 ? 5 : -5;
     ballRadius = 25;
     ballColor = '#F6C6EA';
-    paddleWidth = 350;
-  } else if (count < 6) {
+    paddleWidth = board.width / 2 > 300 ? 350 : 300;
+  } else if (count < 20) {
     dx = dx > 0 ? 7 : -7;
     dy = dy > 0 ? 7 : -7;
     ballRadius = 20;
     ballColor = '#ff7f50';
-    paddleWidth = 300;
-  } else if (count < 10) {
+    paddleWidth = paddleWidth > 250 ? paddleWidth - 30 : 250;
+  } else if (count < 35) {
     dx = dx > 0 ? 9 : -9;
     dy = dy > 0 ? 9 : -9;
     ballRadius = 15;
     ballColor = '#ff6b81';
-    paddleWidth = 275;
-  } else if (count < 15) {
+    paddleWidth = paddleWidth > 200 ? paddleWidth - 30 : 200;
+  } else if (count < 50) {
     dx = dx > 0 ? 10 : -10;
     dy = dy > 0 ? 10 : -10;
     ballRadius = 10;
     ballColor = '#7bed9f';
-    paddleWidth = 240;
-  } else if (count < 20) {
+    paddleWidth = paddleWidth > 175 ? paddleWidth - 30 : 175;
+  } else if (count > 70) {
     dx = dx > 0 ? 11 : -11;
     dy = dy > 0 ? 11 : -11;
     ballColor = '#1e90ff';
-    paddleWidth = 200;
+    paddleWidth = 150;
   }
 }
 
@@ -163,7 +183,6 @@ function getUserName() {
   document.getElementById('username').innerHTML = name;
   draw();
 }
-
-document.getElementById('username').innerHTML = 'Harry potter';
+ 
 getUserName();
-// draw();
+/* draw(); */

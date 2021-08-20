@@ -1,6 +1,10 @@
-* {
+body,
+html {
   margin: 0;
   padding: 0;
+}
+
+* {
   box-sizing: border-box;
 }
 
@@ -9,6 +13,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 .info {
   height: 10vh;
@@ -26,4 +31,21 @@ body {
   background: #368b85;
   /* border-radius: 10px; */
   display: block;
+}
+
+@media only screen and (max-width: 600px) {
+  .info {
+    align-items: flex-start;
+    font-size: medium;
+    height: 15%;
+    flex-wrap: wrap;
+  }
+  .user {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+  }
+  .board {
+    height: 85%;
+  }
 }
